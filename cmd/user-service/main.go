@@ -7,6 +7,7 @@ import (
 
 	"github.com/LavaJover/shvark-user-service/internal/config"
 	"github.com/LavaJover/shvark-user-service/internal/delivery/grpcapi"
+	"github.com/LavaJover/shvark-user-service/internal/infrastructure/kafka"
 	"github.com/LavaJover/shvark-user-service/internal/infrastructure/postgres"
 	"github.com/LavaJover/shvark-user-service/internal/usecase"
 	userpb "github.com/LavaJover/shvark-user-service/proto/gen"
@@ -26,8 +27,11 @@ func main() {
 		log.Fatalf("failed to init user repository: %v\n", err.Error())
 	}
 
+	// Init Kafka producer
+	producer := kafka.NewKafkaProducer("localhost:9092")
+
 	// Init user usecase
-	uc := usecase.NewUserUsecase(userRepo)
+	uc := usecase.NewUserUsecase(userRepo, producer)
 
 	// Creating gRPC server
 	grpcServer := grpc.NewServer()

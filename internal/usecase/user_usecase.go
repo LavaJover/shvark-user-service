@@ -12,12 +12,12 @@ type UserUsecase struct {
 	producer kafka.EventProducer
 }
 
-func NewUserUsecase(repo domain.UserRepository) domain.UserUsecase {
-	return &UserUsecase{Repo: repo}
+func NewUserUsecase(repo domain.UserRepository, producer kafka.EventProducer) domain.UserUsecase {
+	return &UserUsecase{Repo: repo, producer: producer}
 }
 
 func (uc *UserUsecase) CreateUser (user *domain.User) (string, error) {
-	if err := uc.producer.Produce(context.Background(), "user.created", *user); err != nil {
+	if err := uc.producer.Produce(context.Background(), "user.created", user); err != nil {
 		return "", err
 	}
 	return uc.Repo.CreateUser(user)
