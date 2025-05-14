@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/LavaJover/shvark-user-service/proto/gen;userpb";
+
+service UserService {
+    rpc GetUserByID (GetUserRequest) returns (GetUserResponse);
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetUserResponse {
+    string user_id = 1;
+    string username = 2;
+}
