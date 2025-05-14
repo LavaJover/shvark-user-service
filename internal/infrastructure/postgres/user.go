@@ -1,4 +1,4 @@
-package model
+package postgres
 
 import "time"
 
@@ -10,4 +10,3 @@ type UserModel struct {
 	CreatedAt		time.Time
 	UpdatedAt		time.Time
 }
-
