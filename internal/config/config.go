@@ -6,10 +6,10 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
-type SSOConfig struct {
+type UserConfig struct {
 	Env string 	`yaml:"env"`
 	GRPCServer 	`yaml:"grpc_server"`
-	SSODB 		`yaml:"sso_db"`
+	UserDB 		`yaml:"sso_db"`
 	LogConfig 	`yaml:"log_config"`
 }
 
@@ -18,7 +18,7 @@ type GRPCServer struct {
 	Port string `yaml:"port"`
 }
 
-type SSODB struct {
+type UserDB struct {
 	Dsn string `yaml:"dsn"`
 }
 
@@ -28,13 +28,13 @@ type LogConfig struct {
 	LogOutput 	string 	`yaml:"log_output"`
 }
 
-func MustLoad() *SSOConfig {
+func MustLoad() *UserConfig {
 
 	// Processing env config variable and file
-	configPath := os.Getenv("SSO_CONFIG_PATH")
+	configPath := os.Getenv("USER_CONFIG_PATH")
 
 	if configPath == ""{
-		log.Fatalf("SSO_CONFIG_PATH was not found\n")
+		log.Fatalf("USER_CONFIG_PATH was not found\n")
 	}
 
 	if _, err := os.Stat(configPath); err != nil{
@@ -42,7 +42,7 @@ func MustLoad() *SSOConfig {
 	}
 
 	// YAML to struct object
-	var cfg SSOConfig
+	var cfg UserConfig
 	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil{
 		log.Fatalf("failed to read config file: %v", err)
 	}
