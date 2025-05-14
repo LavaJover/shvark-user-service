@@ -31,3 +31,17 @@ func (h *UserHandler) GetUserByID(ctx context.Context, r *userpb.GetUserRequest)
 		Username: user.Username,
 	}, err
 }
+
+func (h *UserHandler) GetUserByLogin(ctx context.Context, r *userpb.GetUserByLoginRequest) (*userpb.GetUserByLoginResponse, error) {
+	user, err := h.UserUsecase.GetUserByLogin(r.Login)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userpb.GetUserByLoginResponse{
+		UserId: user.ID,
+		Login: user.Login,
+		Username: user.Username,
+		Password: user.Password,
+	}, nil
+}

@@ -1,8 +1,6 @@
 package postgres
 
 import (
-	"time"
-
 	"github.com/LavaJover/shvark-user-service/internal/domain"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -24,8 +22,6 @@ func (r *userRepository) CreateUser(user *domain.User) (string, error) {
 		Login: user.Login,
 		Username: user.Username,
 		PasswordHash: user.Password,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
 	}
 	err := r.db.Create(model).Error
 	if err == nil {
@@ -47,7 +43,21 @@ func (r *userRepository) GetUserByID(userID string) (*domain.User, error) {
 		Login: model.Login,
 		Username: model.Username,
 		Password: model.PasswordHash,
-		CreatedAt: model.CreatedAt,
-		UpdatedAt: model.UpdatedAt,
+	}, nil
+}
+
+func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
+	var model UserModel
+	if err := r.db.Where("login = ?", login).First(&model).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, domain.ErrUserNotFound
+		}
+	}
+
+	return &domain.User{
+		ID: model.ID,
+		Username: model.Username,
+		Login: model.Login,
+		Password: model.PasswordHash,
 	}, nil
 }
