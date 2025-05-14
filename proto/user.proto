@@ -7,6 +7,7 @@ option go_package = "github.com/LavaJover/shvark-user-service/proto/gen;userpb";
 service UserService {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc GetUserByID (GetUserRequest) returns (GetUserResponse);
+    rpc GetUserByLogin (GetUserByLoginRequest) returns (GetUserByLoginResponse);
 }
 
 message CreateUserRequest {
@@ -26,4 +27,15 @@ message GetUserRequest {
 message GetUserResponse {
     string user_id = 1;
     string username = 2;
+}
+
+message GetUserByLoginRequest {
+    string login = 1;
+}
+
+message GetUserByLoginResponse {
+    string user_id = 1;
+    string login = 2;
+    string username = 3;
+    string password = 4;
 }
