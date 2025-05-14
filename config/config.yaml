@@ -2,7 +2,7 @@ env: "local"
 grpc_server:
   host: "localhost"
   port: "50052"
-sso_db:
+user_db:
   dsn: "host=localhost user=postgres password=admin dbname=shvark_user_service port=5432 sslmode=disable"
 log_config:
   log_level: "debug"

@@ -9,7 +9,7 @@ import (
 type UserConfig struct {
 	Env string 	`yaml:"env"`
 	GRPCServer 	`yaml:"grpc_server"`
-	UserDB 		`yaml:"sso_db"`
+	UserDB 		`yaml:"user_db"`
 	LogConfig 	`yaml:"log_config"`
 }
 
