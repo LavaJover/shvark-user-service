@@ -173,6 +173,7 @@ type GetUserResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Login         string                 `protobuf:"bytes,3,opt,name=login,proto3" json:"login,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -217,6 +218,13 @@ func (x *GetUserResponse) GetUserId() string {
 func (x *GetUserResponse) GetUsername() string {
 	if x != nil {
 		return x.Username
+	}
+	return ""
+}
+
+func (x *GetUserResponse) GetLogin() string {
+	if x != nil {
+		return x.Login
 	}
 	return ""
 }
@@ -346,10 +354,11 @@ const file_user_proto_rawDesc = "" +
 	"\x12CreateUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\")\n" +
 	"\x0eGetUserRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"F\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\\\n" +
 	"\x0fGetUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
-	"\busername\x18\x02 \x01(\tR\busername\"-\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
+	"\x05login\x18\x03 \x01(\tR\x05login\"-\n" +
 	"\x15GetUserByLoginRequest\x12\x14\n" +
 	"\x05login\x18\x01 \x01(\tR\x05login\"\x7f\n" +
 	"\x16GetUserByLoginResponse\x12\x17\n" +

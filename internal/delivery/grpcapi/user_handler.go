@@ -27,6 +27,7 @@ func (h *UserHandler) CreateUser(ctx context.Context, r *userpb.CreateUserReques
 func (h *UserHandler) GetUserByID(ctx context.Context, r *userpb.GetUserRequest) (*userpb.GetUserResponse, error) {
 	user, err := h.UserUsecase.GetUserByID(r.UserId)
 	return &userpb.GetUserResponse{
+		Login: user.Login,
 		UserId: user.ID,
 		Username: user.Username,
 	}, err
