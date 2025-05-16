@@ -21,3 +21,18 @@ func (uc *UserUsecase) GetUserByID(userID string) (*domain.User, error) {
 func (uc *UserUsecase) GetUserByLogin(login string) (*domain.User, error) {
 	return uc.Repo.GetUserByLogin(login)
 }
+
+func (uc *UserUsecase) CheckPermission(userID string, required domain.Role) (bool, error){
+	// Look for user with given ID
+	user, err := uc.Repo.GetUserByID(userID)
+	if err != nil{
+		return false, domain.ErrUserNotFound
+	}
+
+	// Compare users role and required parameter
+	if user.Role != required {
+		return false, nil
+	}
+
+	return true, nil
+}
