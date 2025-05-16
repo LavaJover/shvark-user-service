@@ -8,6 +8,7 @@ service UserService {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
     rpc GetUserByID (GetUserRequest) returns (GetUserResponse);
     rpc GetUserByLogin (GetUserByLoginRequest) returns (GetUserByLoginResponse);
+    rpc UpdateUserRole (UpdateUserRoleRequest) returns (UpdateUserRoleResponse);
 }
 
 message CreateUserRequest {
@@ -40,3 +41,10 @@ message GetUserByLoginResponse {
     string username = 3;
     string password = 4;
 }
+
+message UpdateUserRoleRequest {
+    string user_id = 1;
+    string new_role = 2;
+}
+
+message UpdateUserRoleResponse {}
