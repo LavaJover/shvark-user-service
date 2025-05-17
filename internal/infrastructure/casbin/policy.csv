@@ -1,0 +1,2 @@
+p, admin, /user.UpdateUser, write
+p, viewer, /user.GetUser, read
