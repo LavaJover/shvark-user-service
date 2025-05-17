@@ -36,3 +36,19 @@ func (uc *UserUsecase) CheckPermission(userID string, required domain.Role) (boo
 
 	return true, nil
 }
+
+// Updates user mathing given userID
+func (uc *UserUsecase) UpdateUser(user *domain.User) error {
+	// Look for user with given ID
+	oldUser, err := uc.Repo.GetUserByID(user.ID)
+	if err != nil {
+		return err
+	}
+
+	// Update the fields
+	oldUser.Login = user.Login
+	oldUser.Username = user.Username
+	oldUser.Password = user.Password
+
+	return nil
+}

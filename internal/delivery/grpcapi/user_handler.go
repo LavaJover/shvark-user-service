@@ -46,3 +46,16 @@ func (h *UserHandler) GetUserByLogin(ctx context.Context, r *userpb.GetUserByLog
 		Password: user.Password,
 	}, nil
 }
+
+func (h *UserHandler) UpdateUserRole(ctx context.Context, r *userpb.UpdateUserRoleRequest) (*userpb.UpdateUserRoleResponse, error) {
+	user := &domain.User{
+		ID: r.UserId,
+		Role: domain.Role(r.NewRole),
+	}
+	err := h.UserUsecase.UpdateUser(user)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userpb.UpdateUserRoleResponse{}, nil
+}

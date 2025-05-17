@@ -61,3 +61,17 @@ func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
 		Password: model.PasswordHash,
 	}, nil
 }
+
+func (r *userRepository) UpdateUser(user *domain.User) error {
+	query := `UPDATE users SET login=$1, username=$2, role=$3, password=$4 WHERE id=$5`
+    tx := r.db.Exec(query, user.Login, user.Username, user.Role, user.Password, user.ID)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return domain.ErrUserNotFound
+	}
+
+	return nil
+}
