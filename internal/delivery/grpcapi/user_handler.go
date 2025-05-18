@@ -30,6 +30,7 @@ func (h *UserHandler) GetUserByID(ctx context.Context, r *userpb.GetUserByIDRequ
 		Login: user.Login,
 		UserId: user.ID,
 		Username: user.Username,
+		Password: user.Password,
 	}, err
 }
 
