@@ -125,27 +125,27 @@ func (x *CreateUserResponse) GetUserId() string {
 	return ""
 }
 
-type GetUserRequest struct {
+type GetUserByIDRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetUserRequest) Reset() {
-	*x = GetUserRequest{}
+func (x *GetUserByIDRequest) Reset() {
+	*x = GetUserByIDRequest{}
 	mi := &file_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetUserRequest) String() string {
+func (x *GetUserByIDRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserRequest) ProtoMessage() {}
+func (*GetUserByIDRequest) ProtoMessage() {}
 
-func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
+func (x *GetUserByIDRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -157,41 +157,42 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
-func (*GetUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetUserByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetUserByIDRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetUserRequest) GetUserId() string {
+func (x *GetUserByIDRequest) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
 	return ""
 }
 
-type GetUserResponse struct {
+type GetUserByIDResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Login         string                 `protobuf:"bytes,3,opt,name=login,proto3" json:"login,omitempty"`
+	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetUserResponse) Reset() {
-	*x = GetUserResponse{}
+func (x *GetUserByIDResponse) Reset() {
+	*x = GetUserByIDResponse{}
 	mi := &file_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetUserResponse) String() string {
+func (x *GetUserByIDResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserResponse) ProtoMessage() {}
+func (*GetUserByIDResponse) ProtoMessage() {}
 
-func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
+func (x *GetUserByIDResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -203,28 +204,35 @@ func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserResponse.ProtoReflect.Descriptor instead.
-func (*GetUserResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetUserByIDResponse.ProtoReflect.Descriptor instead.
+func (*GetUserByIDResponse) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetUserResponse) GetUserId() string {
+func (x *GetUserByIDResponse) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
 	return ""
 }
 
-func (x *GetUserResponse) GetUsername() string {
+func (x *GetUserByIDResponse) GetUsername() string {
 	if x != nil {
 		return x.Username
 	}
 	return ""
 }
 
-func (x *GetUserResponse) GetLogin() string {
+func (x *GetUserByIDResponse) GetLogin() string {
 	if x != nil {
 		return x.Login
+	}
+	return ""
+}
+
+func (x *GetUserByIDResponse) GetPassword() string {
+	if x != nil {
+		return x.Password
 	}
 	return ""
 }
@@ -352,24 +360,25 @@ const file_user_proto_rawDesc = "" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\"-\n" +
 	"\x12CreateUserResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\")\n" +
-	"\x0eGetUserRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"\\\n" +
-	"\x0fGetUserResponse\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"-\n" +
+	"\x12GetUserByIDRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"|\n" +
+	"\x13GetUserByIDResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
-	"\x05login\x18\x03 \x01(\tR\x05login\"-\n" +
+	"\x05login\x18\x03 \x01(\tR\x05login\x12\x1a\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\"-\n" +
 	"\x15GetUserByLoginRequest\x12\x14\n" +
 	"\x05login\x18\x01 \x01(\tR\x05login\"\x7f\n" +
 	"\x16GetUserByLoginResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword2\xd7\x01\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword2\xdf\x01\n" +
 	"\vUserService\x12?\n" +
 	"\n" +
-	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12:\n" +
-	"\vGetUserByID\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponse\x12K\n" +
+	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12B\n" +
+	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x19.user.GetUserByIDResponse\x12K\n" +
 	"\x0eGetUserByLogin\x12\x1b.user.GetUserByLoginRequest\x1a\x1c.user.GetUserByLoginResponseB;Z9github.com/LavaJover/shvark-user-service/proto/gen;userpbb\x06proto3"
 
 var (
@@ -388,17 +397,17 @@ var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_user_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),      // 0: user.CreateUserRequest
 	(*CreateUserResponse)(nil),     // 1: user.CreateUserResponse
-	(*GetUserRequest)(nil),         // 2: user.GetUserRequest
-	(*GetUserResponse)(nil),        // 3: user.GetUserResponse
+	(*GetUserByIDRequest)(nil),     // 2: user.GetUserByIDRequest
+	(*GetUserByIDResponse)(nil),    // 3: user.GetUserByIDResponse
 	(*GetUserByLoginRequest)(nil),  // 4: user.GetUserByLoginRequest
 	(*GetUserByLoginResponse)(nil), // 5: user.GetUserByLoginResponse
 }
 var file_user_proto_depIdxs = []int32{
 	0, // 0: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	2, // 1: user.UserService.GetUserByID:input_type -> user.GetUserRequest
+	2, // 1: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
 	4, // 2: user.UserService.GetUserByLogin:input_type -> user.GetUserByLoginRequest
 	1, // 3: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	3, // 4: user.UserService.GetUserByID:output_type -> user.GetUserResponse
+	3, // 4: user.UserService.GetUserByID:output_type -> user.GetUserByIDResponse
 	5, // 5: user.UserService.GetUserByLogin:output_type -> user.GetUserByLoginResponse
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
