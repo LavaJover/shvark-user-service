@@ -53,6 +53,7 @@ func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
 		if err == gorm.ErrRecordNotFound {
 			return nil, domain.ErrUserNotFound
 		}
+		return nil, err
 	}
 
 	return &domain.User{
