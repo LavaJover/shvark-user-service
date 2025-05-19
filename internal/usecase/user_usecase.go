@@ -1,6 +1,9 @@
 package usecase
 
-import "github.com/LavaJover/shvark-user-service/internal/domain"
+import (
+	"github.com/LavaJover/shvark-user-service/internal/domain"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
+)
 
 type UserUsecase struct {
 	Repo domain.UserRepository
@@ -20,4 +23,8 @@ func (uc *UserUsecase) GetUserByID(userID string) (*domain.User, error) {
 
 func (uc *UserUsecase) GetUserByLogin(login string) (*domain.User, error) {
 	return uc.Repo.GetUserByLogin(login)
+}
+
+func (uc *UserUsecase) UpdateUser(userID string, user *domain.User, mask *fieldmaskpb.FieldMask) (*domain.User, error) {
+	return uc.Repo.UpdateUser(userID, user, mask)
 }

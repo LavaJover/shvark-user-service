@@ -4,10 +4,13 @@ package user;
 
 option go_package = "github.com/LavaJover/shvark-user-service/proto/gen;userpb";
 
+import "google/protobuf/field_mask.proto";
+
 service UserService {
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
-    rpc GetUserByID (GetUserByIDRequest) returns (GetUserByIDResponse);
-    rpc GetUserByLogin (GetUserByLoginRequest) returns (GetUserByLoginResponse);
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse);
+    rpc GetUserByLogin(GetUserByLoginRequest) returns (GetUserByLoginResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
 }
 
 message CreateUserRequest {
@@ -36,6 +39,23 @@ message GetUserByLoginRequest {
 }
 
 message GetUserByLoginResponse {
+    string user_id = 1;
+    string login = 2;
+    string username = 3;
+    string password = 4;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    User user = 2;
+    google.protobuf.FieldMask update_mask = 3;
+}
+
+message UpdateUserResponse {
+    User user = 1;
+}
+
+message User {
     string user_id = 1;
     string login = 2;
     string username = 3;

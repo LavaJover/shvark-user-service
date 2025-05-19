@@ -3,6 +3,7 @@ package postgres
 import (
 	"github.com/LavaJover/shvark-user-service/internal/domain"
 	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"gorm.io/gorm"
 )
 
@@ -60,4 +61,37 @@ func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
 		Login: model.Login,
 		Password: model.PasswordHash,
 	}, nil
+}
+
+func (r *userRepository) UpdateUser(userID string, user *domain.User, mask *fieldmaskpb.FieldMask) (*domain.User, error) {
+	// find user to update from db
+	dbUser, err := r.GetUserByID(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	// change fields from mask
+	for _, path := range mask.Paths {
+		switch path {
+		case "username":
+			dbUser.Username = user.Username
+		case "login":
+			dbUser.Login = user.Login
+		}
+	}
+
+	res := r.db.Save(
+		&UserModel{
+			ID: dbUser.ID,
+			Login: dbUser.Login,
+			Username: dbUser.Username,
+			PasswordHash: dbUser.Password,
+		},
+	)
+
+	if res.Error != nil {
+		return nil, err
+	}
+
+	return dbUser, nil
 }

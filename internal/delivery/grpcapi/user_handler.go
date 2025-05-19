@@ -47,3 +47,29 @@ func (h *UserHandler) GetUserByLogin(ctx context.Context, r *userpb.GetUserByLog
 		Password: user.Password,
 	}, nil
 }
+
+func (h *UserHandler) UpdateUser(ctx context.Context, r *userpb.UpdateUserRequest) (*userpb.UpdateUserResponse, error) {
+	// TO DO:
+	// - Check permissions
+
+	userID := r.UserId
+	newUser := &domain.User{
+		ID: r.User.UserId,
+		Username: r.User.Username,
+		Login: r.User.Login,
+		Password: r.User.Password,
+	}
+	respUser, err := h.UserUsecase.UpdateUser(userID, newUser, r.UpdateMask)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userpb.UpdateUserResponse{
+		User: &userpb.User{
+			UserId: respUser.ID,
+			Login: respUser.Login,
+			Username: respUser.Username,
+			Password: respUser.Password,
+		},
+	}, nil
+}
