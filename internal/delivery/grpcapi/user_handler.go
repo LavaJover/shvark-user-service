@@ -73,3 +73,26 @@ func (h *UserHandler) UpdateUser(ctx context.Context, r *userpb.UpdateUserReques
 		},
 	}, nil
 }
+
+func (h *UserHandler) GetUsers(ctx context.Context, r *userpb.GetUsersRequest) (*userpb.GetUsersResponse, error) {
+	page, limit := r.Page, r.Limit
+	userRecords, totalPages, err := h.UserUsecase.GetUsers(page, limit)
+	if err != nil {
+		return nil, err
+	}
+
+	var users []*userpb.User
+	for _, userRecord := range userRecords {
+		users = append(users, &userpb.User{
+			UserId: userRecord.ID,
+			Login: userRecord.Login,
+			Username: userRecord.Username,
+			Password: userRecord.Password,
+		})
+	}
+
+	return &userpb.GetUsersResponse{
+		TotalPages: int32(totalPages),
+		Users: users,
+	}, nil
+}

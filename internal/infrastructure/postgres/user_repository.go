@@ -96,3 +96,32 @@ func (r *userRepository) UpdateUser(userID string, user *domain.User, mask *fiel
 
 	return dbUser, nil
 }
+
+func (r *userRepository) GetUsers(page, limit int64) ([]*domain.User, int64, error) {
+	var userModels []UserModel
+	var total int64
+
+	if err := r.db.Model(&UserModel{}).Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+
+	offset := (page-1) * limit
+	totalPages := (total + limit - 1) / limit
+	if err := r.db.Offset(int(offset)).Limit(int(limit)).Order("created_at DESC").Find(&userModels).Error; err != nil {
+		return nil, 0, err
+	}
+
+	var userRecords []*domain.User
+	for _, userModel := range userModels {
+		userRecords = append(userRecords, &domain.User{
+			ID: userModel.ID,
+			Username: userModel.Username,
+			Login: userModel.Login,
+			Password: userModel.PasswordHash,
+			CreatedAt: userModel.CreatedAt,
+			UpdatedAt: userModel.UpdatedAt,
+		})
+	}
+
+	return userRecords, totalPages, nil
+}

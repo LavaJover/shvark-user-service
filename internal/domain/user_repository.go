@@ -7,4 +7,5 @@ type UserRepository interface {
 	GetUserByID(userID string) (*User, error)
 	GetUserByLogin(login string) (*User, error)
 	UpdateUser(userID string, user *User, mask *fieldmaskpb.FieldMask) (*User, error)
+	GetUsers(page, limit int64) ([]*User, int64, error)
 }

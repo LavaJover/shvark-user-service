@@ -522,6 +522,110 @@ func (x *User) GetPassword() string {
 	return ""
 }
 
+type GetUsersRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Page          int64                  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Limit         int64                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUsersRequest) Reset() {
+	*x = GetUsersRequest{}
+	mi := &file_user_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUsersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUsersRequest) ProtoMessage() {}
+
+func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUsersRequest.ProtoReflect.Descriptor instead.
+func (*GetUsersRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetUsersRequest) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *GetUsersRequest) GetLimit() int64 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type GetUsersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TotalPages    int32                  `protobuf:"varint,1,opt,name=total_pages,json=totalPages,proto3" json:"total_pages,omitempty"`
+	Users         []*User                `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUsersResponse) Reset() {
+	*x = GetUsersResponse{}
+	mi := &file_user_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUsersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUsersResponse) ProtoMessage() {}
+
+func (x *GetUsersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUsersResponse.ProtoReflect.Descriptor instead.
+func (*GetUsersResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetUsersResponse) GetTotalPages() int32 {
+	if x != nil {
+		return x.TotalPages
+	}
+	return 0
+}
+
+func (x *GetUsersResponse) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -561,14 +665,23 @@ const file_user_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword2\xa0\x02\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\";\n" +
+	"\x0fGetUsersRequest\x12\x12\n" +
+	"\x04page\x18\x01 \x01(\x03R\x04page\x12\x14\n" +
+	"\x05limit\x18\x02 \x01(\x03R\x05limit\"U\n" +
+	"\x10GetUsersResponse\x12\x1f\n" +
+	"\vtotal_pages\x18\x01 \x01(\x05R\n" +
+	"totalPages\x12 \n" +
+	"\x05users\x18\x02 \x03(\v2\n" +
+	".user.UserR\x05users2\xdb\x02\n" +
 	"\vUserService\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12B\n" +
 	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x19.user.GetUserByIDResponse\x12K\n" +
 	"\x0eGetUserByLogin\x12\x1b.user.GetUserByLoginRequest\x1a\x1c.user.GetUserByLoginResponse\x12?\n" +
 	"\n" +
-	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponseB;Z9github.com/LavaJover/shvark-user-service/proto/gen;userpbb\x06proto3"
+	"UpdateUser\x12\x17.user.UpdateUserRequest\x1a\x18.user.UpdateUserResponse\x129\n" +
+	"\bGetUsers\x12\x15.user.GetUsersRequest\x1a\x16.user.GetUsersResponseB;Z9github.com/LavaJover/shvark-user-service/proto/gen;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -582,7 +695,7 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_user_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),      // 0: user.CreateUserRequest
 	(*CreateUserResponse)(nil),     // 1: user.CreateUserResponse
@@ -593,25 +706,30 @@ var file_user_proto_goTypes = []any{
 	(*UpdateUserRequest)(nil),      // 6: user.UpdateUserRequest
 	(*UpdateUserResponse)(nil),     // 7: user.UpdateUserResponse
 	(*User)(nil),                   // 8: user.User
-	(*fieldmaskpb.FieldMask)(nil),  // 9: google.protobuf.FieldMask
+	(*GetUsersRequest)(nil),        // 9: user.GetUsersRequest
+	(*GetUsersResponse)(nil),       // 10: user.GetUsersResponse
+	(*fieldmaskpb.FieldMask)(nil),  // 11: google.protobuf.FieldMask
 }
 var file_user_proto_depIdxs = []int32{
-	8, // 0: user.UpdateUserRequest.user:type_name -> user.User
-	9, // 1: user.UpdateUserRequest.update_mask:type_name -> google.protobuf.FieldMask
-	8, // 2: user.UpdateUserResponse.user:type_name -> user.User
-	0, // 3: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	2, // 4: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
-	4, // 5: user.UserService.GetUserByLogin:input_type -> user.GetUserByLoginRequest
-	6, // 6: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	1, // 7: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	3, // 8: user.UserService.GetUserByID:output_type -> user.GetUserByIDResponse
-	5, // 9: user.UserService.GetUserByLogin:output_type -> user.GetUserByLoginResponse
-	7, // 10: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	8,  // 0: user.UpdateUserRequest.user:type_name -> user.User
+	11, // 1: user.UpdateUserRequest.update_mask:type_name -> google.protobuf.FieldMask
+	8,  // 2: user.UpdateUserResponse.user:type_name -> user.User
+	8,  // 3: user.GetUsersResponse.users:type_name -> user.User
+	0,  // 4: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	2,  // 5: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
+	4,  // 6: user.UserService.GetUserByLogin:input_type -> user.GetUserByLoginRequest
+	6,  // 7: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	9,  // 8: user.UserService.GetUsers:input_type -> user.GetUsersRequest
+	1,  // 9: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	3,  // 10: user.UserService.GetUserByID:output_type -> user.GetUserByIDResponse
+	5,  // 11: user.UserService.GetUserByLogin:output_type -> user.GetUserByLoginResponse
+	7,  // 12: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	10, // 13: user.UserService.GetUsers:output_type -> user.GetUsersResponse
+	9,  // [9:14] is the sub-list for method output_type
+	4,  // [4:9] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -625,7 +743,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

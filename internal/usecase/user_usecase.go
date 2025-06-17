@@ -28,3 +28,7 @@ func (uc *UserUsecase) GetUserByLogin(login string) (*domain.User, error) {
 func (uc *UserUsecase) UpdateUser(userID string, user *domain.User, mask *fieldmaskpb.FieldMask) (*domain.User, error) {
 	return uc.Repo.UpdateUser(userID, user, mask)
 }
+
+func (uc *UserUsecase) GetUsers(page, limit int64) ([]*domain.User, int64, error) {
+	return uc.Repo.GetUsers(page, limit)
+}

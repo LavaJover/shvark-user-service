@@ -11,6 +11,7 @@ service UserService {
     rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse);
     rpc GetUserByLogin(GetUserByLoginRequest) returns (GetUserByLoginResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+    rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
 }
 
 message CreateUserRequest {
@@ -60,4 +61,14 @@ message User {
     string login = 2;
     string username = 3;
     string password = 4;
+}
+
+message GetUsersRequest {
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message GetUsersResponse {
+    int32 total_pages = 1;
+    repeated User users = 2;
 }
