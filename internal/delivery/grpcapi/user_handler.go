@@ -98,8 +98,8 @@ func (h *UserHandler) GetUsers(ctx context.Context, r *userpb.GetUsersRequest) (
 }
 
 func (h *UserHandler) SetTwoFaSecret(ctx context.Context, r *userpb.SetTwoFaSecretRequest) (*userpb.SetTwoFaSecretResponse, error) {
-	login, twoFaSecret := r.Login, r.TwoFaSecret
-	err := h.UserUsecase.SetTwoFaSecret(login, twoFaSecret)
+	userID, twoFaSecret := r.UserId, r.TwoFaSecret
+	err := h.UserUsecase.SetTwoFaSecret(userID, twoFaSecret)
 	if err != nil {
 		return nil, err
 	}

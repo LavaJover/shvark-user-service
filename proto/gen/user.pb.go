@@ -24,7 +24,7 @@ const (
 
 type SetTwoFaSecretRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Login         string                 `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	TwoFaSecret   string                 `protobuf:"bytes,2,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -60,9 +60,9 @@ func (*SetTwoFaSecretRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SetTwoFaSecretRequest) GetLogin() string {
+func (x *SetTwoFaSecretRequest) GetUserId() string {
 	if x != nil {
-		return x.Login
+		return x.UserId
 	}
 	return ""
 }
@@ -719,9 +719,9 @@ var File_user_proto protoreflect.FileDescriptor
 const file_user_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"user.proto\x12\x04user\x1a google/protobuf/field_mask.proto\"Q\n" +
-	"\x15SetTwoFaSecretRequest\x12\x14\n" +
-	"\x05login\x18\x01 \x01(\tR\x05login\x12\"\n" +
+	"user.proto\x12\x04user\x1a google/protobuf/field_mask.proto\"T\n" +
+	"\x15SetTwoFaSecretRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\"\n" +
 	"\rtwo_fa_secret\x18\x02 \x01(\tR\vtwoFaSecret\"\x18\n" +
 	"\x16SetTwoFaSecretResponse\"a\n" +
 	"\x11CreateUserRequest\x12\x14\n" +

@@ -134,7 +134,7 @@ func (r *userRepository) GetUsers(page, limit int64) ([]*domain.User, int64, err
 	return userRecords, totalPages, nil
 }
 
-func (r *userRepository) SetTwoFaSecret(login, twoFaSecret string) error {
-	err := r.db.Model(&UserModel{}).Where("login = ?", login).Update("two_fa_secret", twoFaSecret).Error
+func (r *userRepository) SetTwoFaSecret(userID, twoFaSecret string) error {
+	err := r.db.Model(&UserModel{ID: userID}).Update("two_fa_secret", twoFaSecret).Error
 	return err
 }

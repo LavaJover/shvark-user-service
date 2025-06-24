@@ -17,7 +17,7 @@ service UserService {
 }
 
 message SetTwoFaSecretRequest {
-    string login = 1;
+    string user_id = 1;
     string two_fa_secret = 2;
 }
 

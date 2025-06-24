@@ -33,6 +33,6 @@ func (uc *UserUsecase) GetUsers(page, limit int64) ([]*domain.User, int64, error
 	return uc.Repo.GetUsers(page, limit)
 }
 
-func (uc *UserUsecase) SetTwoFaSecret(login, twoFaSecret string) error {
-	return uc.Repo.SetTwoFaSecret(login, twoFaSecret)
+func (uc *UserUsecase) SetTwoFaSecret(userID, twoFaSecret string) error {
+	return uc.Repo.SetTwoFaSecret(userID, twoFaSecret)
 }
