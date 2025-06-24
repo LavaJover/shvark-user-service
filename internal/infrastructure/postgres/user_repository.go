@@ -23,7 +23,6 @@ func (r *userRepository) CreateUser(user *domain.User) (string, error) {
 		Login: user.Login,
 		Username: user.Username,
 		PasswordHash: user.Password,
-		TwoFaSecret: user.TwoFaSecret,
 	}
 	err := r.db.Create(model).Error
 	if err == nil {
@@ -94,6 +93,7 @@ func (r *userRepository) UpdateUser(userID string, user *domain.User, mask *fiel
 			Login: dbUser.Login,
 			Username: dbUser.Username,
 			PasswordHash: dbUser.Password,
+			TwoFaSecret: dbUser.TwoFaSecret,
 		},
 	)
 

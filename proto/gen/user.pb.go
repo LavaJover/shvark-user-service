@@ -352,6 +352,7 @@ type GetUserByIDResponse struct {
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Login         string                 `protobuf:"bytes,3,opt,name=login,proto3" json:"login,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -414,6 +415,13 @@ func (x *GetUserByIDResponse) GetPassword() string {
 	return ""
 }
 
+func (x *GetUserByIDResponse) GetTwoFaSecret() string {
+	if x != nil {
+		return x.TwoFaSecret
+	}
+	return ""
+}
+
 type GetUserByLoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Login         string                 `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
@@ -464,6 +472,7 @@ type GetUserByLoginResponse struct {
 	Login         string                 `protobuf:"bytes,2,opt,name=login,proto3" json:"login,omitempty"`
 	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -522,6 +531,13 @@ func (x *GetUserByLoginResponse) GetUsername() string {
 func (x *GetUserByLoginResponse) GetPassword() string {
 	if x != nil {
 		return x.Password
+	}
+	return ""
+}
+
+func (x *GetUserByLoginResponse) GetTwoFaSecret() string {
+	if x != nil {
+		return x.TwoFaSecret
 	}
 	return ""
 }
@@ -636,6 +652,7 @@ type User struct {
 	Login         string                 `protobuf:"bytes,2,opt,name=login,proto3" json:"login,omitempty"`
 	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -694,6 +711,13 @@ func (x *User) GetUsername() string {
 func (x *User) GetPassword() string {
 	if x != nil {
 		return x.Password
+	}
+	return ""
+}
+
+func (x *User) GetTwoFaSecret() string {
+	if x != nil {
+		return x.TwoFaSecret
 	}
 	return ""
 }
@@ -823,19 +847,21 @@ const file_user_proto_rawDesc = "" +
 	"\x12CreateUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"-\n" +
 	"\x12GetUserByIDRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"|\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xa0\x01\n" +
 	"\x13GetUserByIDResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
 	"\x05login\x18\x03 \x01(\tR\x05login\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword\"-\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\"-\n" +
 	"\x15GetUserByLoginRequest\x12\x14\n" +
-	"\x05login\x18\x01 \x01(\tR\x05login\"\x7f\n" +
+	"\x05login\x18\x01 \x01(\tR\x05login\"\xa3\x01\n" +
 	"\x16GetUserByLoginResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword\"\x89\x01\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\"\x89\x01\n" +
 	"\x11UpdateUserRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1e\n" +
 	"\x04user\x18\x02 \x01(\v2\n" +
@@ -844,12 +870,13 @@ const file_user_proto_rawDesc = "" +
 	"updateMask\"4\n" +
 	"\x12UpdateUserResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"m\n" +
+	".user.UserR\x04user\"\x91\x01\n" +
 	"\x04User\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword\";\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\";\n" +
 	"\x0fGetUsersRequest\x12\x12\n" +
 	"\x04page\x18\x01 \x01(\x03R\x04page\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x03R\x05limit\"U\n" +

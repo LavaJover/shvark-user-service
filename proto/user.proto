@@ -30,9 +30,7 @@ message SetTwoFaSecretRequest {
     string two_fa_secret = 2;
 }
 
-message SetTwoFaSecretResponse {
-
-}
+message SetTwoFaSecretResponse {}
 
 message CreateUserRequest {
     string login = 1;
@@ -53,6 +51,7 @@ message GetUserByIDResponse {
     string username = 2;
     string login = 3;
     string password = 4;
+    string two_fa_secret = 5;
 }
 
 message GetUserByLoginRequest {
@@ -64,6 +63,7 @@ message GetUserByLoginResponse {
     string login = 2;
     string username = 3;
     string password = 4;
+    string two_fa_secret = 5;
 }
 
 message UpdateUserRequest {
@@ -81,6 +81,7 @@ message User {
     string login = 2;
     string username = 3;
     string password = 4;
+    string two_fa_secret = 5;
 }
 
 message GetUsersRequest {

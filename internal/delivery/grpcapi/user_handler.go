@@ -31,6 +31,7 @@ func (h *UserHandler) GetUserByID(ctx context.Context, r *userpb.GetUserByIDRequ
 		UserId: user.ID,
 		Username: user.Username,
 		Password: user.Password,
+		TwoFaSecret: user.TwoFaSecret,
 	}, err
 }
 
@@ -45,6 +46,7 @@ func (h *UserHandler) GetUserByLogin(ctx context.Context, r *userpb.GetUserByLog
 		Login: user.Login,
 		Username: user.Username,
 		Password: user.Password,
+		TwoFaSecret: user.TwoFaSecret,
 	}, nil
 }
 
@@ -70,6 +72,7 @@ func (h *UserHandler) UpdateUser(ctx context.Context, r *userpb.UpdateUserReques
 			Login: respUser.Login,
 			Username: respUser.Username,
 			Password: respUser.Password,
+			TwoFaSecret: respUser.TwoFaSecret,
 		},
 	}, nil
 }
@@ -86,6 +89,7 @@ func (h *UserHandler) GetUsers(ctx context.Context, r *userpb.GetUsersRequest) (
 		users = append(users, &userpb.User{
 			UserId: userRecord.ID,
 			Login: userRecord.Login,
+			TwoFaSecret: userRecord.TwoFaSecret,
 			Username: userRecord.Username,
 			Password: userRecord.Password,
 		})
