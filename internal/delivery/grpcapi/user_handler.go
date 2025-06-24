@@ -127,3 +127,12 @@ func (h *UserHandler) GetTwoFaSecretByID(ctx context.Context, r *userpb.GetTwoFa
 		TwoFaSecret: twoFaSecret,
 	}, nil
 }
+
+func (h *UserHandler) SetTwoFaEnabled(ctx context.Context, r *userpb.SetTwoFaEnabledRequest) (*userpb.SetTwoFaEnabledResponse, error) {
+	err := h.UserUsecase.SetTwoFaEnabled(r.UserId, r.Enabled)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userpb.SetTwoFaEnabledResponse{}, nil
+}

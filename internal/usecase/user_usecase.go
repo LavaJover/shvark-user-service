@@ -40,3 +40,7 @@ func (uc *UserUsecase) SetTwoFaSecret(userID, twoFaSecret string) error {
 func (uc *UserUsecase) GetTwoFaSecretByID(userID string) (string, error) {
 	return uc.Repo.GetTwoFaSecretByID(userID)
 }
+
+func (uc *UserUsecase) SetTwoFaEnabled(userID string, enabled bool) error {
+	return uc.Repo.SetTwoFaEnabled(userID, enabled)
+}

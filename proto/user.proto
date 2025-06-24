@@ -15,6 +15,16 @@ service UserService {
 
     rpc SetTwoFaSecret (SetTwoFaSecretRequest) returns (SetTwoFaSecretResponse);
     rpc GetTwoFaSecretByID (GetTwoFaSecretByIDRequest) returns (GetTwoFaSecretByIDResponse);
+    rpc SetTwoFaEnabled (SetTwoFaEnabledRequest) returns (SetTwoFaEnabledResponse);
+}
+
+message SetTwoFaEnabledRequest {
+    string user_id = 1;
+    bool enabled = 2;
+}
+
+message SetTwoFaEnabledResponse {
+
 }
 
 message GetTwoFaSecretByIDRequest {

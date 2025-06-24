@@ -26,6 +26,7 @@ const (
 	UserService_GetUsers_FullMethodName           = "/user.UserService/GetUsers"
 	UserService_SetTwoFaSecret_FullMethodName     = "/user.UserService/SetTwoFaSecret"
 	UserService_GetTwoFaSecretByID_FullMethodName = "/user.UserService/GetTwoFaSecretByID"
+	UserService_SetTwoFaEnabled_FullMethodName    = "/user.UserService/SetTwoFaEnabled"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -39,6 +40,7 @@ type UserServiceClient interface {
 	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
 	SetTwoFaSecret(ctx context.Context, in *SetTwoFaSecretRequest, opts ...grpc.CallOption) (*SetTwoFaSecretResponse, error)
 	GetTwoFaSecretByID(ctx context.Context, in *GetTwoFaSecretByIDRequest, opts ...grpc.CallOption) (*GetTwoFaSecretByIDResponse, error)
+	SetTwoFaEnabled(ctx context.Context, in *SetTwoFaEnabledRequest, opts ...grpc.CallOption) (*SetTwoFaEnabledResponse, error)
 }
 
 type userServiceClient struct {
@@ -119,6 +121,16 @@ func (c *userServiceClient) GetTwoFaSecretByID(ctx context.Context, in *GetTwoFa
 	return out, nil
 }
 
+func (c *userServiceClient) SetTwoFaEnabled(ctx context.Context, in *SetTwoFaEnabledRequest, opts ...grpc.CallOption) (*SetTwoFaEnabledResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetTwoFaEnabledResponse)
+	err := c.cc.Invoke(ctx, UserService_SetTwoFaEnabled_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -130,6 +142,7 @@ type UserServiceServer interface {
 	GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error)
 	SetTwoFaSecret(context.Context, *SetTwoFaSecretRequest) (*SetTwoFaSecretResponse, error)
 	GetTwoFaSecretByID(context.Context, *GetTwoFaSecretByIDRequest) (*GetTwoFaSecretByIDResponse, error)
+	SetTwoFaEnabled(context.Context, *SetTwoFaEnabledRequest) (*SetTwoFaEnabledResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -160,6 +173,9 @@ func (UnimplementedUserServiceServer) SetTwoFaSecret(context.Context, *SetTwoFaS
 }
 func (UnimplementedUserServiceServer) GetTwoFaSecretByID(context.Context, *GetTwoFaSecretByIDRequest) (*GetTwoFaSecretByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTwoFaSecretByID not implemented")
+}
+func (UnimplementedUserServiceServer) SetTwoFaEnabled(context.Context, *SetTwoFaEnabledRequest) (*SetTwoFaEnabledResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetTwoFaEnabled not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -308,6 +324,24 @@ func _UserService_GetTwoFaSecretByID_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_SetTwoFaEnabled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetTwoFaEnabledRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).SetTwoFaEnabled(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_SetTwoFaEnabled_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).SetTwoFaEnabled(ctx, req.(*SetTwoFaEnabledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +376,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTwoFaSecretByID",
 			Handler:    _UserService_GetTwoFaSecretByID_Handler,
+		},
+		{
+			MethodName: "SetTwoFaEnabled",
+			Handler:    _UserService_SetTwoFaEnabled_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

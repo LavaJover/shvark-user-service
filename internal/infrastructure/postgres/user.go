@@ -7,8 +7,8 @@ type UserModel struct {
 	Login			string `gorm:"unique;not null"`
 	Username		string `gorm:"unique;not null"`
 	PasswordHash	string `gorm:"not null"`
-	TwoFaSecret 	string
-	TwoFaEnabled 	bool
+	TwoFaSecret 	string	`gorm:"two_fa_secret"`
+	TwoFaEnabled 	bool	`gorm:"two_fa_enabled"`
 	CreatedAt 		time.Time
 	UpdatedAt		time.Time
 }

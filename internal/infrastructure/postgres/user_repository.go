@@ -151,3 +151,7 @@ func (r *userRepository) GetTwoFaSecretByID(userID string) (string, error) {
 
 	return userModel.TwoFaSecret, nil
 }
+
+func (r *userRepository) SetTwoFaEnabled(userID string, enabled bool) error {
+	return r.db.Model(&UserModel{ID: userID}).Update("two_fa_enabled", enabled).Error
+}
