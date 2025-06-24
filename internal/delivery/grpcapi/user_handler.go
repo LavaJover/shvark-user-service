@@ -106,3 +106,14 @@ func (h *UserHandler) SetTwoFaSecret(ctx context.Context, r *userpb.SetTwoFaSecr
 
 	return &userpb.SetTwoFaSecretResponse{}, nil
 }
+
+func (h *UserHandler) GetTwoFaSecretByID(ctx context.Context, r *userpb.GetTwoFaSecretByIDRequest) (*userpb.GetTwoFaSecretByIDResponse, error) {
+	twoFaSecret, err := h.UserUsecase.GetTwoFaSecretByID(r.UserId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userpb.GetTwoFaSecretByIDResponse{
+		TwoFaSecret: twoFaSecret,
+	}, nil
+}

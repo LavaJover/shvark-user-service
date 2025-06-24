@@ -10,4 +10,5 @@ type UserRepository interface {
 	GetUsers(page, limit int64) ([]*User, int64, error)
 
 	SetTwoFaSecret(userID, twoFaSecret string) error
+	GetTwoFaSecretByID(userID string) (string, error)
 }

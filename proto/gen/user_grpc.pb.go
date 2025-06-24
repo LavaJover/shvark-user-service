@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateUser_FullMethodName     = "/user.UserService/CreateUser"
-	UserService_GetUserByID_FullMethodName    = "/user.UserService/GetUserByID"
-	UserService_GetUserByLogin_FullMethodName = "/user.UserService/GetUserByLogin"
-	UserService_UpdateUser_FullMethodName     = "/user.UserService/UpdateUser"
-	UserService_GetUsers_FullMethodName       = "/user.UserService/GetUsers"
-	UserService_SetTwoFaSecret_FullMethodName = "/user.UserService/SetTwoFaSecret"
+	UserService_CreateUser_FullMethodName         = "/user.UserService/CreateUser"
+	UserService_GetUserByID_FullMethodName        = "/user.UserService/GetUserByID"
+	UserService_GetUserByLogin_FullMethodName     = "/user.UserService/GetUserByLogin"
+	UserService_UpdateUser_FullMethodName         = "/user.UserService/UpdateUser"
+	UserService_GetUsers_FullMethodName           = "/user.UserService/GetUsers"
+	UserService_SetTwoFaSecret_FullMethodName     = "/user.UserService/SetTwoFaSecret"
+	UserService_GetTwoFaSecretByID_FullMethodName = "/user.UserService/GetTwoFaSecretByID"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -37,6 +38,7 @@ type UserServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
 	SetTwoFaSecret(ctx context.Context, in *SetTwoFaSecretRequest, opts ...grpc.CallOption) (*SetTwoFaSecretResponse, error)
+	GetTwoFaSecretByID(ctx context.Context, in *GetTwoFaSecretByIDRequest, opts ...grpc.CallOption) (*GetTwoFaSecretByIDResponse, error)
 }
 
 type userServiceClient struct {
@@ -107,6 +109,16 @@ func (c *userServiceClient) SetTwoFaSecret(ctx context.Context, in *SetTwoFaSecr
 	return out, nil
 }
 
+func (c *userServiceClient) GetTwoFaSecretByID(ctx context.Context, in *GetTwoFaSecretByIDRequest, opts ...grpc.CallOption) (*GetTwoFaSecretByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTwoFaSecretByIDResponse)
+	err := c.cc.Invoke(ctx, UserService_GetTwoFaSecretByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type UserServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error)
 	SetTwoFaSecret(context.Context, *SetTwoFaSecretRequest) (*SetTwoFaSecretResponse, error)
+	GetTwoFaSecretByID(context.Context, *GetTwoFaSecretByIDRequest) (*GetTwoFaSecretByIDResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedUserServiceServer) GetUsers(context.Context, *GetUsersRequest
 }
 func (UnimplementedUserServiceServer) SetTwoFaSecret(context.Context, *SetTwoFaSecretRequest) (*SetTwoFaSecretResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetTwoFaSecret not implemented")
+}
+func (UnimplementedUserServiceServer) GetTwoFaSecretByID(context.Context, *GetTwoFaSecretByIDRequest) (*GetTwoFaSecretByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTwoFaSecretByID not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -274,6 +290,24 @@ func _UserService_SetTwoFaSecret_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetTwoFaSecretByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTwoFaSecretByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetTwoFaSecretByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetTwoFaSecretByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetTwoFaSecretByID(ctx, req.(*GetTwoFaSecretByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetTwoFaSecret",
 			Handler:    _UserService_SetTwoFaSecret_Handler,
+		},
+		{
+			MethodName: "GetTwoFaSecretByID",
+			Handler:    _UserService_GetTwoFaSecretByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -138,3 +138,12 @@ func (r *userRepository) SetTwoFaSecret(userID, twoFaSecret string) error {
 	err := r.db.Model(&UserModel{ID: userID}).Update("two_fa_secret", twoFaSecret).Error
 	return err
 }
+
+func (r *userRepository) GetTwoFaSecretByID(userID string) (string, error) {
+	var userModel UserModel
+	if err := r.db.Model(&UserModel{ID: userID}).First(&userModel).Error; err != nil {
+		return "", err
+	}
+
+	return userModel.TwoFaSecret, nil
+}

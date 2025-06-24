@@ -14,6 +14,15 @@ service UserService {
     rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
 
     rpc SetTwoFaSecret (SetTwoFaSecretRequest) returns (SetTwoFaSecretResponse);
+    rpc GetTwoFaSecretByID (GetTwoFaSecretByIDRequest) returns (GetTwoFaSecretByIDResponse);
+}
+
+message GetTwoFaSecretByIDRequest {
+    string user_id = 1;
+}
+
+message GetTwoFaSecretByIDResponse{
+    string twoFaSecret = 1;
 }
 
 message SetTwoFaSecretRequest {
