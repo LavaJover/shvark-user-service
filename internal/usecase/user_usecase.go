@@ -32,3 +32,7 @@ func (uc *UserUsecase) UpdateUser(userID string, user *domain.User, mask *fieldm
 func (uc *UserUsecase) GetUsers(page, limit int64) ([]*domain.User, int64, error) {
 	return uc.Repo.GetUsers(page, limit)
 }
+
+func (uc *UserUsecase) SetTwoFaSecret(login, twoFaSecret string) error {
+	return uc.Repo.SetTwoFaSecret(login, twoFaSecret)
+}

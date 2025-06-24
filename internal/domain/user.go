@@ -7,6 +7,7 @@ type User struct {
 	Username	string
 	Login		string
 	Password	string
+	TwoFaSecret	string
 	CreatedAt	time.Time
 	UpdatedAt 	time.Time
 }

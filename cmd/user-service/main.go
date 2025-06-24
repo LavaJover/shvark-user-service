@@ -11,9 +11,16 @@ import (
 	"github.com/LavaJover/shvark-user-service/internal/usecase"
 	userpb "github.com/LavaJover/shvark-user-service/proto/gen"
 	"google.golang.org/grpc"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	if err := godotenv.Load(); err != nil {
+		log.Println("failed to load .env")
+	}
+	
 	// Reading config
 	cfg := config.MustLoad()
 

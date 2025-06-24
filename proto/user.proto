@@ -12,6 +12,17 @@ service UserService {
     rpc GetUserByLogin(GetUserByLoginRequest) returns (GetUserByLoginResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
+
+    rpc SetTwoFaSecret (SetTwoFaSecretRequest) returns (SetTwoFaSecretResponse);
+}
+
+message SetTwoFaSecretRequest {
+    string login = 1;
+    string two_fa_secret = 2;
+}
+
+message SetTwoFaSecretResponse {
+
 }
 
 message CreateUserRequest {

@@ -23,6 +23,7 @@ func (r *userRepository) CreateUser(user *domain.User) (string, error) {
 		Login: user.Login,
 		Username: user.Username,
 		PasswordHash: user.Password,
+		TwoFaSecret: user.TwoFaSecret,
 	}
 	err := r.db.Create(model).Error
 	if err == nil {
@@ -44,6 +45,9 @@ func (r *userRepository) GetUserByID(userID string) (*domain.User, error) {
 		Login: model.Login,
 		Username: model.Username,
 		Password: model.PasswordHash,
+		TwoFaSecret: model.TwoFaSecret,
+		CreatedAt: model.CreatedAt,
+		UpdatedAt: model.UpdatedAt,
 	}, nil
 }
 
@@ -61,6 +65,9 @@ func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
 		Username: model.Username,
 		Login: model.Login,
 		Password: model.PasswordHash,
+		TwoFaSecret: model.TwoFaSecret,
+		CreatedAt: model.CreatedAt,
+		UpdatedAt: model.UpdatedAt,
 	}, nil
 }
 
@@ -120,8 +127,14 @@ func (r *userRepository) GetUsers(page, limit int64) ([]*domain.User, int64, err
 			Password: userModel.PasswordHash,
 			CreatedAt: userModel.CreatedAt,
 			UpdatedAt: userModel.UpdatedAt,
+			TwoFaSecret: userModel.TwoFaSecret,
 		})
 	}
 
 	return userRecords, totalPages, nil
+}
+
+func (r *userRepository) SetTwoFaSecret(login, twoFaSecret string) error {
+	err := r.db.Model(&UserModel{}).Where("login = ?", login).Update("two_fa_secret", twoFaSecret).Error
+	return err
 }

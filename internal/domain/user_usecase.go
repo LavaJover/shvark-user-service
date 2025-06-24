@@ -8,4 +8,5 @@ type UserUsecase interface {
 	CreateUser(user *User) (string, error)
 	UpdateUser(userID string, user *User, mask *fieldmaskpb.FieldMask) (*User, error)
 	GetUsers(page, limit int64) ([]*User, int64, error)
+	SetTwoFaSecret(login, twoFaSecret string) error
 }
