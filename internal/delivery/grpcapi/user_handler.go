@@ -32,6 +32,7 @@ func (h *UserHandler) GetUserByID(ctx context.Context, r *userpb.GetUserByIDRequ
 		Username: user.Username,
 		Password: user.Password,
 		TwoFaSecret: user.TwoFaSecret,
+		TwoFaEnabled: user.TwoFaEnabled,
 	}, err
 }
 
@@ -47,6 +48,7 @@ func (h *UserHandler) GetUserByLogin(ctx context.Context, r *userpb.GetUserByLog
 		Username: user.Username,
 		Password: user.Password,
 		TwoFaSecret: user.TwoFaSecret,
+		TwoFaEnabled: user.TwoFaEnabled,
 	}, nil
 }
 
@@ -60,6 +62,8 @@ func (h *UserHandler) UpdateUser(ctx context.Context, r *userpb.UpdateUserReques
 		Username: r.User.Username,
 		Login: r.User.Login,
 		Password: r.User.Password,
+		TwoFaSecret: r.User.TwoFaSecret,
+		TwoFaEnabled: r.User.TwoFaEnabled,
 	}
 	respUser, err := h.UserUsecase.UpdateUser(userID, newUser, r.UpdateMask)
 	if err != nil {
@@ -73,6 +77,7 @@ func (h *UserHandler) UpdateUser(ctx context.Context, r *userpb.UpdateUserReques
 			Username: respUser.Username,
 			Password: respUser.Password,
 			TwoFaSecret: respUser.TwoFaSecret,
+			TwoFaEnabled: respUser.TwoFaEnabled,
 		},
 	}, nil
 }
@@ -92,6 +97,7 @@ func (h *UserHandler) GetUsers(ctx context.Context, r *userpb.GetUsersRequest) (
 			TwoFaSecret: userRecord.TwoFaSecret,
 			Username: userRecord.Username,
 			Password: userRecord.Password,
+			TwoFaEnabled: userRecord.TwoFaEnabled,
 		})
 	}
 

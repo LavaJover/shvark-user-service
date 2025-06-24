@@ -45,6 +45,7 @@ func (r *userRepository) GetUserByID(userID string) (*domain.User, error) {
 		Username: model.Username,
 		Password: model.PasswordHash,
 		TwoFaSecret: model.TwoFaSecret,
+		TwoFaEnabled: model.TwoFaEnabled,
 		CreatedAt: model.CreatedAt,
 		UpdatedAt: model.UpdatedAt,
 	}, nil
@@ -65,6 +66,7 @@ func (r *userRepository) GetUserByLogin(login string) (*domain.User, error) {
 		Login: model.Login,
 		Password: model.PasswordHash,
 		TwoFaSecret: model.TwoFaSecret,
+		TwoFaEnabled: model.TwoFaEnabled,
 		CreatedAt: model.CreatedAt,
 		UpdatedAt: model.UpdatedAt,
 	}, nil
@@ -92,6 +94,7 @@ func (r *userRepository) UpdateUser(userID string, user *domain.User, mask *fiel
 			ID: dbUser.ID,
 			Login: dbUser.Login,
 			Username: dbUser.Username,
+			TwoFaEnabled: dbUser.TwoFaEnabled,
 			PasswordHash: dbUser.Password,
 			TwoFaSecret: dbUser.TwoFaSecret,
 		},
@@ -125,6 +128,7 @@ func (r *userRepository) GetUsers(page, limit int64) ([]*domain.User, int64, err
 			Username: userModel.Username,
 			Login: userModel.Login,
 			Password: userModel.PasswordHash,
+			TwoFaEnabled: userModel.TwoFaEnabled,
 			CreatedAt: userModel.CreatedAt,
 			UpdatedAt: userModel.UpdatedAt,
 			TwoFaSecret: userModel.TwoFaSecret,

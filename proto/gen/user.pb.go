@@ -68,7 +68,7 @@ func (x *GetTwoFaSecretByIDRequest) GetUserId() string {
 
 type GetTwoFaSecretByIDResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	TwoFaSecret   string                 `protobuf:"bytes,1,opt,name=twoFaSecret,proto3" json:"twoFaSecret,omitempty"`
+	TwoFaSecret   string                 `protobuf:"bytes,1,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -353,6 +353,7 @@ type GetUserByIDResponse struct {
 	Login         string                 `protobuf:"bytes,3,opt,name=login,proto3" json:"login,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
+	TwoFaEnabled  bool                   `protobuf:"varint,6,opt,name=two_fa_enabled,json=twoFaEnabled,proto3" json:"two_fa_enabled,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -422,6 +423,13 @@ func (x *GetUserByIDResponse) GetTwoFaSecret() string {
 	return ""
 }
 
+func (x *GetUserByIDResponse) GetTwoFaEnabled() bool {
+	if x != nil {
+		return x.TwoFaEnabled
+	}
+	return false
+}
+
 type GetUserByLoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Login         string                 `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
@@ -473,6 +481,7 @@ type GetUserByLoginResponse struct {
 	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
+	TwoFaEnabled  bool                   `protobuf:"varint,6,opt,name=two_fa_enabled,json=twoFaEnabled,proto3" json:"two_fa_enabled,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -540,6 +549,13 @@ func (x *GetUserByLoginResponse) GetTwoFaSecret() string {
 		return x.TwoFaSecret
 	}
 	return ""
+}
+
+func (x *GetUserByLoginResponse) GetTwoFaEnabled() bool {
+	if x != nil {
+		return x.TwoFaEnabled
+	}
+	return false
 }
 
 type UpdateUserRequest struct {
@@ -653,6 +669,7 @@ type User struct {
 	Username      string                 `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
+	TwoFaEnabled  bool                   `protobuf:"varint,6,opt,name=two_fa_enabled,json=twoFaEnabled,proto3" json:"two_fa_enabled,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -720,6 +737,13 @@ func (x *User) GetTwoFaSecret() string {
 		return x.TwoFaSecret
 	}
 	return ""
+}
+
+func (x *User) GetTwoFaEnabled() bool {
+	if x != nil {
+		return x.TwoFaEnabled
+	}
+	return false
 }
 
 type GetUsersRequest struct {
@@ -833,9 +857,9 @@ const file_user_proto_rawDesc = "" +
 	"\n" +
 	"user.proto\x12\x04user\x1a google/protobuf/field_mask.proto\"4\n" +
 	"\x19GetTwoFaSecretByIDRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\">\n" +
-	"\x1aGetTwoFaSecretByIDResponse\x12 \n" +
-	"\vtwoFaSecret\x18\x01 \x01(\tR\vtwoFaSecret\"T\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"@\n" +
+	"\x1aGetTwoFaSecretByIDResponse\x12\"\n" +
+	"\rtwo_fa_secret\x18\x01 \x01(\tR\vtwoFaSecret\"T\n" +
 	"\x15SetTwoFaSecretRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\"\n" +
 	"\rtwo_fa_secret\x18\x02 \x01(\tR\vtwoFaSecret\"\x18\n" +
@@ -847,21 +871,23 @@ const file_user_proto_rawDesc = "" +
 	"\x12CreateUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"-\n" +
 	"\x12GetUserByIDRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xa0\x01\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xc6\x01\n" +
 	"\x13GetUserByIDResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
 	"\x05login\x18\x03 \x01(\tR\x05login\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
-	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\"-\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\x12$\n" +
+	"\x0etwo_fa_enabled\x18\x06 \x01(\bR\ftwoFaEnabled\"-\n" +
 	"\x15GetUserByLoginRequest\x12\x14\n" +
-	"\x05login\x18\x01 \x01(\tR\x05login\"\xa3\x01\n" +
+	"\x05login\x18\x01 \x01(\tR\x05login\"\xc9\x01\n" +
 	"\x16GetUserByLoginResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
-	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\"\x89\x01\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\x12$\n" +
+	"\x0etwo_fa_enabled\x18\x06 \x01(\bR\ftwoFaEnabled\"\x89\x01\n" +
 	"\x11UpdateUserRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1e\n" +
 	"\x04user\x18\x02 \x01(\v2\n" +
@@ -870,13 +896,14 @@ const file_user_proto_rawDesc = "" +
 	"updateMask\"4\n" +
 	"\x12UpdateUserResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"\x91\x01\n" +
+	".user.UserR\x04user\"\xb7\x01\n" +
 	"\x04User\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
-	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\";\n" +
+	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\x12$\n" +
+	"\x0etwo_fa_enabled\x18\x06 \x01(\bR\ftwoFaEnabled\";\n" +
 	"\x0fGetUsersRequest\x12\x12\n" +
 	"\x04page\x18\x01 \x01(\x03R\x04page\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x03R\x05limit\"U\n" +

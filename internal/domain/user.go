@@ -3,13 +3,14 @@ package domain
 import "time"
 
 type User struct {
-	ID			string
-	Username	string
-	Login		string
-	Password	string
-	TwoFaSecret	string
-	CreatedAt	time.Time
-	UpdatedAt 	time.Time
+	ID				string
+	Username		string
+	Login			string
+	Password		string
+	TwoFaSecret		string
+	TwoFaEnabled 	bool
+	CreatedAt		time.Time
+	UpdatedAt 		time.Time
 }
 
 func NewUser(username, login, password string) (*User, error) {
