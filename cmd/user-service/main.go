@@ -18,7 +18,7 @@ import (
 func main() {
 
 	if err := godotenv.Load(); err != nil {
-		log.Println("failed to load .env")
+		log.Printf("failed to load .env: %s\n", err.Error())
 	}
 	
 	// Reading config
