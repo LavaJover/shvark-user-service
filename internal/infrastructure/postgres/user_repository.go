@@ -179,7 +179,7 @@ func (r *userRepository) GetTraders() ([]*domain.User, error) {
 
 func (r *userRepository) GetMerchants() ([]*domain.User, error) {
 	var merchants []UserModel
-	if err := r.db.Model(UserModel{}).Where("role = ?", string(domain.Trader)).Find(&merchants).Error; err != nil {
+	if err := r.db.Model(UserModel{}).Where("role = ?", string(domain.Merchant)).Find(&merchants).Error; err != nil {
 		return nil, err
 	}
 
