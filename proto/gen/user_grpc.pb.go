@@ -27,6 +27,8 @@ const (
 	UserService_SetTwoFaSecret_FullMethodName     = "/user.UserService/SetTwoFaSecret"
 	UserService_GetTwoFaSecretByID_FullMethodName = "/user.UserService/GetTwoFaSecretByID"
 	UserService_SetTwoFaEnabled_FullMethodName    = "/user.UserService/SetTwoFaEnabled"
+	UserService_GetTraders_FullMethodName         = "/user.UserService/GetTraders"
+	UserService_GetMerchants_FullMethodName       = "/user.UserService/GetMerchants"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -41,6 +43,8 @@ type UserServiceClient interface {
 	SetTwoFaSecret(ctx context.Context, in *SetTwoFaSecretRequest, opts ...grpc.CallOption) (*SetTwoFaSecretResponse, error)
 	GetTwoFaSecretByID(ctx context.Context, in *GetTwoFaSecretByIDRequest, opts ...grpc.CallOption) (*GetTwoFaSecretByIDResponse, error)
 	SetTwoFaEnabled(ctx context.Context, in *SetTwoFaEnabledRequest, opts ...grpc.CallOption) (*SetTwoFaEnabledResponse, error)
+	GetTraders(ctx context.Context, in *GetTradersRequest, opts ...grpc.CallOption) (*GetTradersResponse, error)
+	GetMerchants(ctx context.Context, in *GetMerchantsRequest, opts ...grpc.CallOption) (*GetMerchantsResponse, error)
 }
 
 type userServiceClient struct {
@@ -131,6 +135,26 @@ func (c *userServiceClient) SetTwoFaEnabled(ctx context.Context, in *SetTwoFaEna
 	return out, nil
 }
 
+func (c *userServiceClient) GetTraders(ctx context.Context, in *GetTradersRequest, opts ...grpc.CallOption) (*GetTradersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTradersResponse)
+	err := c.cc.Invoke(ctx, UserService_GetTraders_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetMerchants(ctx context.Context, in *GetMerchantsRequest, opts ...grpc.CallOption) (*GetMerchantsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMerchantsResponse)
+	err := c.cc.Invoke(ctx, UserService_GetMerchants_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -143,6 +167,8 @@ type UserServiceServer interface {
 	SetTwoFaSecret(context.Context, *SetTwoFaSecretRequest) (*SetTwoFaSecretResponse, error)
 	GetTwoFaSecretByID(context.Context, *GetTwoFaSecretByIDRequest) (*GetTwoFaSecretByIDResponse, error)
 	SetTwoFaEnabled(context.Context, *SetTwoFaEnabledRequest) (*SetTwoFaEnabledResponse, error)
+	GetTraders(context.Context, *GetTradersRequest) (*GetTradersResponse, error)
+	GetMerchants(context.Context, *GetMerchantsRequest) (*GetMerchantsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -176,6 +202,12 @@ func (UnimplementedUserServiceServer) GetTwoFaSecretByID(context.Context, *GetTw
 }
 func (UnimplementedUserServiceServer) SetTwoFaEnabled(context.Context, *SetTwoFaEnabledRequest) (*SetTwoFaEnabledResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetTwoFaEnabled not implemented")
+}
+func (UnimplementedUserServiceServer) GetTraders(context.Context, *GetTradersRequest) (*GetTradersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTraders not implemented")
+}
+func (UnimplementedUserServiceServer) GetMerchants(context.Context, *GetMerchantsRequest) (*GetMerchantsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMerchants not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -342,6 +374,42 @@ func _UserService_SetTwoFaEnabled_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetTraders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTradersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetTraders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetTraders_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetTraders(ctx, req.(*GetTradersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetMerchants_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMerchantsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetMerchants(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetMerchants_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetMerchants(ctx, req.(*GetMerchantsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -380,6 +448,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetTwoFaEnabled",
 			Handler:    _UserService_SetTwoFaEnabled_Handler,
+		},
+		{
+			MethodName: "GetTraders",
+			Handler:    _UserService_GetTraders_Handler,
+		},
+		{
+			MethodName: "GetMerchants",
+			Handler:    _UserService_GetMerchants_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

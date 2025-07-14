@@ -23,6 +23,7 @@ func (r *userRepository) CreateUser(user *domain.User) (string, error) {
 		Login: user.Login,
 		Username: user.Username,
 		PasswordHash: user.Password,
+		Role: string(user.Role),
 	}
 	err := r.db.Create(model).Error
 	if err == nil {
@@ -154,4 +155,44 @@ func (r *userRepository) GetTwoFaSecretByID(userID string) (string, error) {
 
 func (r *userRepository) SetTwoFaEnabled(userID string, enabled bool) error {
 	return r.db.Model(&UserModel{ID: userID}).Update("two_fa_enabled", enabled).Error
+}
+
+func (r *userRepository) GetTraders() ([]*domain.User, error) {
+	var traders []UserModel
+	if err := r.db.Model(UserModel{}).Where("role = ?", string(domain.Trader)).Find(&traders).Error; err != nil {
+		return nil, err
+	}
+
+	respTraders := make([]*domain.User, len(traders))
+	for i, trader := range traders {
+		respTraders[i] = &domain.User{
+			ID: trader.ID,
+			Username: trader.Username,
+			Login: trader.Login,
+			Password: trader.PasswordHash,
+			Role: domain.UserRole(trader.Role),
+		}
+	}
+
+	return respTraders, nil
+}
+
+func (r *userRepository) GetMerchants() ([]*domain.User, error) {
+	var merchants []UserModel
+	if err := r.db.Model(UserModel{}).Where("role = ?", string(domain.Trader)).Find(&merchants).Error; err != nil {
+		return nil, err
+	}
+
+	respMerchants := make([]*domain.User, len(merchants))
+	for i, merchant := range merchants {
+		respMerchants[i] = &domain.User{
+			ID: merchant.ID,
+			Username: merchant.Username,
+			Login: merchant.Login,
+			Password: merchant.PasswordHash,
+			Role: domain.UserRole(merchant.Role),
+		}
+	}
+
+	return respMerchants, nil
 }

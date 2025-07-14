@@ -17,6 +17,7 @@ func (h *UserHandler) CreateUser(ctx context.Context, r *userpb.CreateUserReques
 		Username: r.Username,
 		Login: r.Login,
 		Password: r.Password,
+		Role: domain.UserRole(r.Role),
 	}
 	userID, err := h.UserUsecase.CreateUser(user)
 	return &userpb.CreateUserResponse{
@@ -135,4 +136,52 @@ func (h *UserHandler) SetTwoFaEnabled(ctx context.Context, r *userpb.SetTwoFaEna
 	}
 
 	return &userpb.SetTwoFaEnabledResponse{}, nil
+}
+
+func (h *UserHandler) GetTraders(ctx context.Context, r *userpb.GetTradersRequest) (*userpb.GetTradersResponse, error) {
+	traders, err := h.UserUsecase.GetTraders()
+	if err != nil {
+		return nil, err
+	}
+
+	respTraders := make([]*userpb.User, len(traders))
+	for i, trader := range traders {
+		respTraders[i] = &userpb.User{
+			UserId: trader.ID,
+			Login: trader.Login,
+			Username: trader.Username,
+			Password: trader.Password,
+			TwoFaSecret: trader.TwoFaSecret,
+			TwoFaEnabled: trader.TwoFaEnabled,
+			Role: string(trader.Role),
+		}
+	}
+
+	return &userpb.GetTradersResponse{
+		Traders: respTraders,
+	}, nil
+}
+
+func (h *UserHandler) GetMerchants(ctx context.Context, r *userpb.GetMerchantsRequest) (*userpb.GetMerchantsResponse, error) {
+	merchants, err := h.UserUsecase.GetMerchants()
+	if err != nil {
+		return nil, err
+	}
+
+	respMerchants := make([]*userpb.User, len(merchants))
+	for i, trader := range merchants {
+		respMerchants[i] = &userpb.User{
+			UserId: trader.ID,
+			Login: trader.Login,
+			Username: trader.Username,
+			Password: trader.Password,
+			TwoFaSecret: trader.TwoFaSecret,
+			TwoFaEnabled: trader.TwoFaEnabled,
+			Role: string(trader.Role),
+		}
+	}
+
+	return &userpb.GetMerchantsResponse{
+		Merchants: respMerchants,
+	}, nil
 }

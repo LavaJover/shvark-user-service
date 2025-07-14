@@ -291,6 +291,7 @@ type CreateUserRequest struct {
 	Login         string                 `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Role          string                 `protobuf:"bytes,4,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -342,6 +343,13 @@ func (x *CreateUserRequest) GetUsername() string {
 func (x *CreateUserRequest) GetPassword() string {
 	if x != nil {
 		return x.Password
+	}
+	return ""
+}
+
+func (x *CreateUserRequest) GetRole() string {
+	if x != nil {
+		return x.Role
 	}
 	return ""
 }
@@ -758,6 +766,7 @@ type User struct {
 	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	TwoFaSecret   string                 `protobuf:"bytes,5,opt,name=two_fa_secret,json=twoFaSecret,proto3" json:"two_fa_secret,omitempty"`
 	TwoFaEnabled  bool                   `protobuf:"varint,6,opt,name=two_fa_enabled,json=twoFaEnabled,proto3" json:"two_fa_enabled,omitempty"`
+	Role          string                 `protobuf:"bytes,7,opt,name=role,proto3" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -832,6 +841,13 @@ func (x *User) GetTwoFaEnabled() bool {
 		return x.TwoFaEnabled
 	}
 	return false
+}
+
+func (x *User) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
 }
 
 type GetUsersRequest struct {
@@ -938,6 +954,166 @@ func (x *GetUsersResponse) GetUsers() []*User {
 	return nil
 }
 
+type GetTradersRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTradersRequest) Reset() {
+	*x = GetTradersRequest{}
+	mi := &file_user_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTradersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTradersRequest) ProtoMessage() {}
+
+func (x *GetTradersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTradersRequest.ProtoReflect.Descriptor instead.
+func (*GetTradersRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{17}
+}
+
+type GetTradersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Traders       []*User                `protobuf:"bytes,1,rep,name=traders,proto3" json:"traders,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTradersResponse) Reset() {
+	*x = GetTradersResponse{}
+	mi := &file_user_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTradersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTradersResponse) ProtoMessage() {}
+
+func (x *GetTradersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTradersResponse.ProtoReflect.Descriptor instead.
+func (*GetTradersResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetTradersResponse) GetTraders() []*User {
+	if x != nil {
+		return x.Traders
+	}
+	return nil
+}
+
+type GetMerchantsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMerchantsRequest) Reset() {
+	*x = GetMerchantsRequest{}
+	mi := &file_user_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMerchantsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMerchantsRequest) ProtoMessage() {}
+
+func (x *GetMerchantsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMerchantsRequest.ProtoReflect.Descriptor instead.
+func (*GetMerchantsRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{19}
+}
+
+type GetMerchantsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Merchants     []*User                `protobuf:"bytes,1,rep,name=merchants,proto3" json:"merchants,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMerchantsResponse) Reset() {
+	*x = GetMerchantsResponse{}
+	mi := &file_user_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMerchantsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMerchantsResponse) ProtoMessage() {}
+
+func (x *GetMerchantsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMerchantsResponse.ProtoReflect.Descriptor instead.
+func (*GetMerchantsResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *GetMerchantsResponse) GetMerchants() []*User {
+	if x != nil {
+		return x.Merchants
+	}
+	return nil
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -955,11 +1131,12 @@ const file_user_proto_rawDesc = "" +
 	"\x15SetTwoFaSecretRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\"\n" +
 	"\rtwo_fa_secret\x18\x02 \x01(\tR\vtwoFaSecret\"\x18\n" +
-	"\x16SetTwoFaSecretResponse\"a\n" +
+	"\x16SetTwoFaSecretResponse\"u\n" +
 	"\x11CreateUserRequest\x12\x14\n" +
 	"\x05login\x18\x01 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\"-\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x12\n" +
+	"\x04role\x18\x04 \x01(\tR\x04role\"-\n" +
 	"\x12CreateUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"-\n" +
 	"\x12GetUserByIDRequest\x12\x17\n" +
@@ -988,14 +1165,15 @@ const file_user_proto_rawDesc = "" +
 	"updateMask\"4\n" +
 	"\x12UpdateUserResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"\xb7\x01\n" +
+	".user.UserR\x04user\"\xcb\x01\n" +
 	"\x04User\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05login\x18\x02 \x01(\tR\x05login\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12\"\n" +
 	"\rtwo_fa_secret\x18\x05 \x01(\tR\vtwoFaSecret\x12$\n" +
-	"\x0etwo_fa_enabled\x18\x06 \x01(\bR\ftwoFaEnabled\";\n" +
+	"\x0etwo_fa_enabled\x18\x06 \x01(\bR\ftwoFaEnabled\x12\x12\n" +
+	"\x04role\x18\a \x01(\tR\x04role\";\n" +
 	"\x0fGetUsersRequest\x12\x12\n" +
 	"\x04page\x18\x01 \x01(\x03R\x04page\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x03R\x05limit\"U\n" +
@@ -1003,7 +1181,15 @@ const file_user_proto_rawDesc = "" +
 	"\vtotal_pages\x18\x01 \x01(\x05R\n" +
 	"totalPages\x12 \n" +
 	"\x05users\x18\x02 \x03(\v2\n" +
-	".user.UserR\x05users2\xd1\x04\n" +
+	".user.UserR\x05users\"\x13\n" +
+	"\x11GetTradersRequest\":\n" +
+	"\x12GetTradersResponse\x12$\n" +
+	"\atraders\x18\x01 \x03(\v2\n" +
+	".user.UserR\atraders\"\x15\n" +
+	"\x13GetMerchantsRequest\"@\n" +
+	"\x14GetMerchantsResponse\x12(\n" +
+	"\tmerchants\x18\x01 \x03(\v2\n" +
+	".user.UserR\tmerchants2\xd9\x05\n" +
 	"\vUserService\x12?\n" +
 	"\n" +
 	"CreateUser\x12\x17.user.CreateUserRequest\x1a\x18.user.CreateUserResponse\x12B\n" +
@@ -1014,7 +1200,10 @@ const file_user_proto_rawDesc = "" +
 	"\bGetUsers\x12\x15.user.GetUsersRequest\x1a\x16.user.GetUsersResponse\x12K\n" +
 	"\x0eSetTwoFaSecret\x12\x1b.user.SetTwoFaSecretRequest\x1a\x1c.user.SetTwoFaSecretResponse\x12W\n" +
 	"\x12GetTwoFaSecretByID\x12\x1f.user.GetTwoFaSecretByIDRequest\x1a .user.GetTwoFaSecretByIDResponse\x12N\n" +
-	"\x0fSetTwoFaEnabled\x12\x1c.user.SetTwoFaEnabledRequest\x1a\x1d.user.SetTwoFaEnabledResponseB;Z9github.com/LavaJover/shvark-user-service/proto/gen;userpbb\x06proto3"
+	"\x0fSetTwoFaEnabled\x12\x1c.user.SetTwoFaEnabledRequest\x1a\x1d.user.SetTwoFaEnabledResponse\x12?\n" +
+	"\n" +
+	"GetTraders\x12\x17.user.GetTradersRequest\x1a\x18.user.GetTradersResponse\x12E\n" +
+	"\fGetMerchants\x12\x19.user.GetMerchantsRequest\x1a\x1a.user.GetMerchantsResponseB;Z9github.com/LavaJover/shvark-user-service/proto/gen;userpbb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -1028,7 +1217,7 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_user_proto_goTypes = []any{
 	(*SetTwoFaEnabledRequest)(nil),     // 0: user.SetTwoFaEnabledRequest
 	(*SetTwoFaEnabledResponse)(nil),    // 1: user.SetTwoFaEnabledResponse
@@ -1047,34 +1236,44 @@ var file_user_proto_goTypes = []any{
 	(*User)(nil),                       // 14: user.User
 	(*GetUsersRequest)(nil),            // 15: user.GetUsersRequest
 	(*GetUsersResponse)(nil),           // 16: user.GetUsersResponse
-	(*fieldmaskpb.FieldMask)(nil),      // 17: google.protobuf.FieldMask
+	(*GetTradersRequest)(nil),          // 17: user.GetTradersRequest
+	(*GetTradersResponse)(nil),         // 18: user.GetTradersResponse
+	(*GetMerchantsRequest)(nil),        // 19: user.GetMerchantsRequest
+	(*GetMerchantsResponse)(nil),       // 20: user.GetMerchantsResponse
+	(*fieldmaskpb.FieldMask)(nil),      // 21: google.protobuf.FieldMask
 }
 var file_user_proto_depIdxs = []int32{
 	14, // 0: user.UpdateUserRequest.user:type_name -> user.User
-	17, // 1: user.UpdateUserRequest.update_mask:type_name -> google.protobuf.FieldMask
+	21, // 1: user.UpdateUserRequest.update_mask:type_name -> google.protobuf.FieldMask
 	14, // 2: user.UpdateUserResponse.user:type_name -> user.User
 	14, // 3: user.GetUsersResponse.users:type_name -> user.User
-	6,  // 4: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	8,  // 5: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
-	10, // 6: user.UserService.GetUserByLogin:input_type -> user.GetUserByLoginRequest
-	12, // 7: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	15, // 8: user.UserService.GetUsers:input_type -> user.GetUsersRequest
-	4,  // 9: user.UserService.SetTwoFaSecret:input_type -> user.SetTwoFaSecretRequest
-	2,  // 10: user.UserService.GetTwoFaSecretByID:input_type -> user.GetTwoFaSecretByIDRequest
-	0,  // 11: user.UserService.SetTwoFaEnabled:input_type -> user.SetTwoFaEnabledRequest
-	7,  // 12: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	9,  // 13: user.UserService.GetUserByID:output_type -> user.GetUserByIDResponse
-	11, // 14: user.UserService.GetUserByLogin:output_type -> user.GetUserByLoginResponse
-	13, // 15: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	16, // 16: user.UserService.GetUsers:output_type -> user.GetUsersResponse
-	5,  // 17: user.UserService.SetTwoFaSecret:output_type -> user.SetTwoFaSecretResponse
-	3,  // 18: user.UserService.GetTwoFaSecretByID:output_type -> user.GetTwoFaSecretByIDResponse
-	1,  // 19: user.UserService.SetTwoFaEnabled:output_type -> user.SetTwoFaEnabledResponse
-	12, // [12:20] is the sub-list for method output_type
-	4,  // [4:12] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	14, // 4: user.GetTradersResponse.traders:type_name -> user.User
+	14, // 5: user.GetMerchantsResponse.merchants:type_name -> user.User
+	6,  // 6: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	8,  // 7: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
+	10, // 8: user.UserService.GetUserByLogin:input_type -> user.GetUserByLoginRequest
+	12, // 9: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	15, // 10: user.UserService.GetUsers:input_type -> user.GetUsersRequest
+	4,  // 11: user.UserService.SetTwoFaSecret:input_type -> user.SetTwoFaSecretRequest
+	2,  // 12: user.UserService.GetTwoFaSecretByID:input_type -> user.GetTwoFaSecretByIDRequest
+	0,  // 13: user.UserService.SetTwoFaEnabled:input_type -> user.SetTwoFaEnabledRequest
+	17, // 14: user.UserService.GetTraders:input_type -> user.GetTradersRequest
+	19, // 15: user.UserService.GetMerchants:input_type -> user.GetMerchantsRequest
+	7,  // 16: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	9,  // 17: user.UserService.GetUserByID:output_type -> user.GetUserByIDResponse
+	11, // 18: user.UserService.GetUserByLogin:output_type -> user.GetUserByLoginResponse
+	13, // 19: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	16, // 20: user.UserService.GetUsers:output_type -> user.GetUsersResponse
+	5,  // 21: user.UserService.SetTwoFaSecret:output_type -> user.SetTwoFaSecretResponse
+	3,  // 22: user.UserService.GetTwoFaSecretByID:output_type -> user.GetTwoFaSecretByIDResponse
+	1,  // 23: user.UserService.SetTwoFaEnabled:output_type -> user.SetTwoFaEnabledResponse
+	18, // 24: user.UserService.GetTraders:output_type -> user.GetTradersResponse
+	20, // 25: user.UserService.GetMerchants:output_type -> user.GetMerchantsResponse
+	16, // [16:26] is the sub-list for method output_type
+	6,  // [6:16] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -1088,7 +1287,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

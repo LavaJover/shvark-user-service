@@ -44,3 +44,11 @@ func (uc *UserUsecase) GetTwoFaSecretByID(userID string) (string, error) {
 func (uc *UserUsecase) SetTwoFaEnabled(userID string, enabled bool) error {
 	return uc.Repo.SetTwoFaEnabled(userID, enabled)
 }
+
+func (uc *UserUsecase) GetTraders() ([]*domain.User, error) {
+	return uc.Repo.GetTraders()
+}
+
+func (uc *UserUsecase) GetMerchants() ([]*domain.User, error) {
+	return uc.Repo.GetMerchants()
+}

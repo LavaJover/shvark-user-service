@@ -12,4 +12,7 @@ type UserRepository interface {
 	SetTwoFaSecret(userID, twoFaSecret string) error
 	GetTwoFaSecretByID(userID string) (string, error)
 	SetTwoFaEnabled(userID string, enabled bool) error
+
+	GetTraders() ([]*User, error)
+	GetMerchants() ([]*User, error)
 }

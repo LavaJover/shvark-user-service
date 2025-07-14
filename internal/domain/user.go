@@ -2,11 +2,20 @@ package domain
 
 import "time"
 
+type UserRole string
+
+const (
+	Trader 	 UserRole = "TRADER"
+	Merchant UserRole = "MERCHANT"
+	Admin	 UserRole = "ADMIN"
+)
+
 type User struct {
 	ID				string
 	Username		string
 	Login			string
 	Password		string
+	Role 			UserRole
 	TwoFaSecret		string
 	TwoFaEnabled 	bool
 	CreatedAt		time.Time

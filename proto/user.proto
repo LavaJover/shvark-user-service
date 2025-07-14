@@ -16,6 +16,9 @@ service UserService {
     rpc SetTwoFaSecret (SetTwoFaSecretRequest) returns (SetTwoFaSecretResponse);
     rpc GetTwoFaSecretByID (GetTwoFaSecretByIDRequest) returns (GetTwoFaSecretByIDResponse);
     rpc SetTwoFaEnabled (SetTwoFaEnabledRequest) returns (SetTwoFaEnabledResponse);
+
+    rpc GetTraders (GetTradersRequest) returns (GetTradersResponse);
+    rpc GetMerchants (GetMerchantsRequest) returns (GetMerchantsResponse);
 }
 
 message SetTwoFaEnabledRequest {
@@ -46,6 +49,7 @@ message CreateUserRequest {
     string login = 1;
     string username = 2;
     string password = 3;
+    string role = 4;
 }
 
 message CreateUserResponse {
@@ -95,6 +99,7 @@ message User {
     string password = 4;
     string two_fa_secret = 5;
     bool two_fa_enabled = 6;
+    string role = 7;
 }
 
 message GetUsersRequest {
@@ -105,4 +110,16 @@ message GetUsersRequest {
 message GetUsersResponse {
     int32 total_pages = 1;
     repeated User users = 2;
+}
+
+message GetTradersRequest {}
+
+message GetTradersResponse {
+    repeated User traders = 1;
+}
+
+message GetMerchantsRequest {}
+
+message GetMerchantsResponse {
+    repeated User merchants = 1;
 }

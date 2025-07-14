@@ -9,6 +9,7 @@ type UserModel struct {
 	PasswordHash	string `gorm:"not null"`
 	TwoFaSecret 	string	`gorm:"two_fa_secret"`
 	TwoFaEnabled 	bool	`gorm:"two_fa_enabled"`
+	Role 			string
 	CreatedAt 		time.Time
 	UpdatedAt		time.Time
 }
